@@ -1,12 +1,12 @@
 /****************************************************************************
-** Copyright (C) 2001-2011 RibbonSoft. All rights reserved.
+** Copyright (C) 2001-2013 RibbonSoft, GmbH. All rights reserved.
 **
 ** This file is part of the dxflib project.
 **
-** This file may be distributed and/or modified under the terms of the
-** GNU General Public License version 2 as published by the Free Software
-** Foundation and appearing in the file LICENSE.GPL included in the
-** packaging of this file.
+** This file is free software; you can redistribute it and/or modify
+** it under the terms of the GNU General Public License as published by
+** the Free Software Foundation; either version 2 of the License, or
+** (at your option) any later version.
 **
 ** Licensees holding valid dxflib Professional Edition licenses may use 
 ** this file in accordance with the dxflib Commercial License
@@ -25,8 +25,9 @@
 #ifndef DL_ATTRIBUTES_H
 #define DL_ATTRIBUTES_H
 
+#include "dl_global.h"
+
 #include <string>
-using std::string;
 
 #include "dl_codes.h"
 
@@ -36,22 +37,21 @@ using std::string;
  *
  * @author Andrew Mustun
  */
-class DL_Attributes {
+class DXFLIB_EXPORT DL_Attributes {
 
 public:
 
     /**
      * Default constructor.
      */
-    DL_Attributes() {
-        setLayer("");
-        setColor(0);
-        setColor24(-1);
-        setWidth(0);
-        setLineType("BYLAYER");
+    DL_Attributes() :
+        layer(""),
+        color(0),
+        color24(-1),
+        width(0),
+        lineType("BYLAYER"),
+        handle(-1) {
     }
-
-
 
     /**
      * Constructor for DXF attributes.
@@ -64,16 +64,17 @@ public:
      * @param lineType Line type name or "BYLAYER" or "BYBLOCK". Defaults
      *              to "BYLAYER"
      */
-    DL_Attributes(const string& layer,
+    DL_Attributes(const std::string& layer,
                   int color, int width,
-                  const string& lineType) {
-        setLayer(layer);
-        setColor(color);
-        setColor24(-1);
-        setWidth(width);
-        setLineType(lineType);
+                  const std::string& lineType) :
+        layer(layer),
+        color(color),
+        color24(-1),
+        width(width),
+        lineType(lineType),
+        handle(-1) {
+
     }
-    
     
     /**
      * Constructor for DXF attributes.
@@ -87,36 +88,32 @@ public:
      * @param lineType Line type name or "BYLAYER" or "BYBLOCK". Defaults
      *              to "BYLAYER"
      */
-    DL_Attributes(const string& layer,
+    DL_Attributes(const std::string& layer,
                   int color, int color24, int width,
-                  const string& lineType) {
-        setLayer(layer);
-        setColor(color);
-        setColor24(color24);
-        setWidth(width);
-        setLineType(lineType);
+                  const std::string& lineType,
+                  int handle=-1)  :
+        layer(layer),
+        color(color),
+        color24(color24),
+        width(width),
+        lineType(lineType),
+        handle(handle) {
     }
-
-
 
     /**
      * Sets the layer. If the given pointer points to NULL, the
      *  new layer name will be an empty but valid string.
      */
-    void setLayer(const string& layer) {
+    void setLayer(const std::string& layer) {
         this->layer = layer;
     }
-
-
 
     /**
      * @return Layer name.
      */
-    string getLayer() const {
+    std::string getLayer() const {
         return layer;
     }
-
-
 
     /**
      * Sets the color.
@@ -127,8 +124,6 @@ public:
         this->color = color;
     }
     
-    
-    
     /**
      * Sets the 24bit color.
      *
@@ -138,8 +133,6 @@ public:
         this->color24 = color;
     }
 
-
-
     /**
      * @return Color.
      *
@@ -147,10 +140,8 @@ public:
      */
     int getColor() const {
         return color;
-    }
-    
-    
-    
+    } 
+
     /**
      * @return 24 bit color or -1 if no 24bit color is defined.
      *
@@ -160,16 +151,12 @@ public:
         return color24;
     }
 
-
-
     /**
      * Sets the width.
      */
     void setWidth(int width) {
         this->width = width;
     }
-
-
 
     /**
      * @return Width.
@@ -178,22 +165,18 @@ public:
         return width;
     }
 
-
-
     /**
      * Sets the line type. This can be any string and is not
      *  checked to be a valid line type. 
      */
-    void setLineType(const string& lineType) {
+    void setLineType(const std::string& lineType) {
         this->lineType = lineType;
     }
-
-
 
     /**
      * @return Line type.
      */
-    string getLineType() const {
+    std::string getLineType() const {
         if (lineType.length()==0) {
             return "BYLAYER";
         } else {
@@ -201,27 +184,21 @@ public:
         }
     }
 
+    void setHandle(int h) {
+        handle = h;
+    }
 
-
-    /**
-     * Copies attributes (deep copies) from another attribute object.
-     */
-    DL_Attributes operator = (const DL_Attributes& attrib) {
-        setLayer(attrib.layer);
-        setColor(attrib.color);
-        setColor24(attrib.color24);
-        setWidth(attrib.width);
-        setLineType(attrib.lineType);
-
-        return *this;
+    int getHandle() const {
+        return handle;
     }
 
 private:
-    string layer;
+    std::string layer;
     int color;
     int color24;
     int width;
-    string lineType;
+    std::string lineType;
+    int handle;
 };
 
 #endif
