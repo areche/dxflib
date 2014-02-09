@@ -181,10 +181,12 @@ struct DXFLIB_EXPORT DL_PointData {
      * Constructor.
      * Parameters: see member variables.
      */
-    DL_PointData(double px=0.0, double py=0.0, double pz=0.0) {
+    DL_PointData(double px=0.0, double py=0.0, double pz=0.0, double pthikness=0.0, double pangle=0.0) {
         x = px;
         y = py;
         z = pz;
+        thikness = pthikness;
+        angle = pangle;
     }
 
     /*! X Coordinate of the point. */
@@ -193,6 +195,10 @@ struct DXFLIB_EXPORT DL_PointData {
     double y;
     /*! Z Coordinate of the point. */
     double z;
+    /*! Thikness of the point. */
+    double thikness;
+    /*! Angle of the point. */
+    double angle;
 };
 
 

@@ -881,7 +881,9 @@ void DL_Dxf::addTextStyle(DL_CreationInterface* creationInterface) {
 void DL_Dxf::addPoint(DL_CreationInterface* creationInterface) {
     DL_PointData d(getRealValue(10, 0.0),
                    getRealValue(20, 0.0),
-                   getRealValue(30, 0.0));
+                   getRealValue(30, 0.0),
+                   getRealValue(39, 0.0),
+                   getRealValue(50, 0.0));
     creationInterface->addPoint(d);
 }
 
