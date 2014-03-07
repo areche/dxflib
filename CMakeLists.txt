@@ -1,12 +1,12 @@
 cmake_minimum_required( VERSION 2.8 )
 
-project( dxflib2_5 )
+project( DXFLib )
 
 set( HEADERS
   src/dl_attributes.h
   src/dl_codes.h
   src/dl_creationadapter.h
-  src/dl_creationinterface
+  src/dl_creationinterface.h
   src/dl_dxf.h
   src/dl_entities.h
   src/dl_exception.h
@@ -27,14 +27,10 @@ else()
 	add_library( ${PROJECT_NAME} SHARED ${HEADERS} ${SOURCES})
 endif()
 
-install(FILES ${HEADERS} DESTINATION include)
+install(FILES ${HEADERS} DESTINATION include/dxflib)
 
 install(TARGETS ${PROJECT_NAME} 
   RUNTIME DESTINATION bin COMPONENT applications
   LIBRARY DESTINATION lib COMPONENT libraries
   ARCHIVE DESTINATION lib COMPONENT headers
 )
-
-#target_link_libraries( ${PROJECT_NAME} )
-
-#add_subdirectory( test )
